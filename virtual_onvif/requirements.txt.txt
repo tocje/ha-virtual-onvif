@@ -1,0 +1,15 @@
+flask==2.3.3
+flask-cors==4.0.0
+requests==2.31.0
+lxml==4.9.3
+zeep==4.2.1
+suds-jurko==0.6
+netifaces==0.11.0
+python-onvif-zeep==0.2.12
+asyncio==3.4.3
+aiohttp==3.8.5
+websockets==11.0.3
+schedule==1.2.0
+pyyaml==6.0.1
+jinja2==3.1.2
+uuid==1.30

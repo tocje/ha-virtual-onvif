@@ -1,0 +1,71 @@
+name: "Virtual ONVIF Device"
+description: "Creates virtual ONVIF cameras with configurable streams and event injection"
+version: "1.0.0"
+slug: "virtual_onvif"
+init: false
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+
+# Network ports
+ports:
+  "8080/tcp": 8080    # Web UI
+  "8081/tcp": 8081    # ONVIF Device Services  
+  "8082/tcp": 8082    # ONVIF Media Services
+  "3702/udp": 3702    # WS-Discovery
+
+# Port descriptions
+ports_description:
+  "8080/tcp": "Web configuration interface"
+  "8081/tcp": "ONVIF device and event services"
+  "8082/tcp": "ONVIF media services"
+  "3702/udp": "ONVIF device discovery"
+
+# Host network access for discovery
+host_network: false
+hassio_api: true
+homeassistant_api: true
+
+# Add-on options
+options:
+  devices: []
+  discovery_enabled: true
+  log_level: "info"
+
+# Configuration schema
+schema:
+  devices:
+    - name: str
+      uuid: str?
+      main_stream_url: url
+      sub_stream_url: url?
+      manufacturer: str?
+      model: str?
+      firmware_version: str?
+      motion_trigger_entity: str?
+      door_trigger_entity: str?
+      custom_events: [str]?
+  discovery_enabled: bool
+  log_level: list(debug|info|warning|error)
+
+# Web UI
+webui: "http://[HOST]:[PORT:8080]"
+
+# Startup type
+startup: system
+
+# Map configuration and data
+map:
+  - "addon_config:rw"
+  - "ssl:ro"
+
+# Build configuration for local add-on
+build_from:
+  aarch64: "homeassistant/aarch64-base:latest"
+  amd64: "homeassistant/amd64-base:latest"
+  armhf: "homeassistant/armhf-base:latest"
+  armv7: "homeassistant/armv7-base:latest"
+  i386: "homeassistant/i386-base:latest"
